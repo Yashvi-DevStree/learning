@@ -17,13 +17,4 @@ export class AppController {
     };
   }
 
-  /**
-   * Optional: Manual trigger to start the worker listening
-   * GET http://localhost:3000/notifications/start-worker
-   */
-  @Get('start-worker')
-  async startWorker() {
-    await this.rabbitmqService.consumeNotifications();
-    return { message: 'Worker is now listening for messages...' };
-  }
 }

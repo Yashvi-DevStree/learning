@@ -12,7 +12,7 @@ export class RabbitmqService implements OnModuleInit {
     this.channel = await this.connection.createChannel();
     await this.channel.assertQueue(this.queue, { durable: true });
 
-    console.log('RabbitMQ connected');
+    console.log('Producer connected to RabbitMQ');
   }
 
   async sendNotification(data: any) {
@@ -23,17 +23,6 @@ export class RabbitmqService implements OnModuleInit {
     );
 
     console.log('Notification sent to queue');
-  }
-
-  async consumeNotifications() {
-    this.channel.consume(this.queue, (msg) => {
-      if (msg) {
-        const content = JSON.parse(msg.content.toString());
-        console.log('Processing notification:', content);
-
-        this.channel.ack(msg);
-      }
-    });
   }
 }
  
